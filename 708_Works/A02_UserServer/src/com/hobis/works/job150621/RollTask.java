@@ -16,6 +16,7 @@ public class RollTask extends Thread implements Closeable {
     public RollTask(Socket s, Vector<RollTask> clients) {
         this._socket = s;
         this._clients = clients;
+        this._clients.add(this);
         this._hostAddress = this._socket.getInetAddress().getHostAddress();
     }
 
@@ -25,6 +26,15 @@ public class RollTask extends Thread implements Closeable {
     private String _hostAddress = null;
     private Scanner _scan = null;
 
+
+    // ::
+    private void p_msgPush() {
+        if (this._clients == null) return;
+
+        //for (RollTask t_rt : this._clients) {
+        //    t_rt._socket.getOutputStream()
+        //}
+    }
 
     // ::
     private void p_loop() {
@@ -70,11 +80,11 @@ public class RollTask extends Thread implements Closeable {
             catch (Exception e) {
             }
 
-            RollUtil.trace("this._clients.size(): " + this._clients.size());
+            //RollUtil.trace("this._clients.size(): " + this._clients.size());
             this._clients = null;
 
 
-            RollUtil.trace("클라이언트를 삭제합니다.");
+            //RollUtil.trace("클라이언트를 삭제합니다.");
         }
     }
 }
