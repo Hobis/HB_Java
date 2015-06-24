@@ -4,19 +4,25 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.Vector;
 
 
 /**
  * Created by Hobis-PC on 2015-06-21.
  */
 @SuppressWarnings("unused")
-public class UserTask extends Thread implements Closeable {
+public class RollTask extends Thread implements Closeable {
 
-    public UserTask(Socket s) {
+    public RollTask(Socket s, Vector<RollTask> clients) {
         this._socket = s;
+        this._clients = clients;
+        this._hostAddress = this._socket.getInetAddress().getHostAddress();
     }
 
     private Socket _socket = null;
+    private Vector<RollTask> _clients = null;
+
+    private String _hostAddress = null;
     private Scanner _scan = null;
 
 
@@ -24,8 +30,9 @@ public class UserTask extends Thread implements Closeable {
     private void p_loop() {
         while (this._scan.hasNextLine()) {
             String t_ls = this._scan.nextLine();
-            System.out.println("t_ls: " + t_ls);
+            RollUtil.println(this._hostAddress + ", " + t_ls);
         }
+        this.close();
     }
 
 
@@ -33,12 +40,11 @@ public class UserTask extends Thread implements Closeable {
     public void run() {
         try {
             this._scan = new Scanner(this._socket.getInputStream());
+            this.p_loop();
         }
         catch (IOException e) {
             this.close();
         }
-
-        this.p_loop();
     }
 
     @Override
@@ -49,14 +55,26 @@ public class UserTask extends Thread implements Closeable {
             }
             catch (Exception e) {
             }
+            this._socket = null;
 
             try {
                 this._scan.close();
             }
             catch (Exception e) {
             }
+            this._scan = null;
 
-            this._socket = null;
+            try {
+                this._clients.remove(this);
+            }
+            catch (Exception e) {
+            }
+
+            RollUtil.trace("this._clients.size(): " + this._clients.size());
+            this._clients = null;
+
+
+            RollUtil.trace("클라이언트를 삭제합니다.");
         }
     }
 }
