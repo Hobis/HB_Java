@@ -1,4 +1,4 @@
-import hb.tools.HB_NetTool;
+import hb.tools.NetTool;
 
 /**
  * Created by Hobis-PC on 2015-06-24.
@@ -6,7 +6,7 @@ import hb.tools.HB_NetTool;
 public final class TestMain {
     public static void main(String[] args) {
         /*
-        String t_str = HB_NetTool.load_urlDataString(
+        String t_str = NetTool.load_urlDataString(
                 "https://www.youtube.com/watch?v=PpmSvKe3nOY&index=5&list=PL9O4Fkn5dFJMHfWMmKuvOJPFZ0tTA5QfO",
                 StandardCharsets.UTF_8.name());
         */
@@ -20,9 +20,10 @@ public final class TestMain {
 
 
 
-        System.out.println(HB_NetTool.get_localHostAddress_a());
-        System.out.println(HB_NetTool.get_localHostAddress_b());
-        System.out.println(HB_NetTool.get_localHostAddress_w());
+        System.out.println(NetTool.get_localHostAddress_a());
+        System.out.println(NetTool.get_localHostAddress_b());
+        System.out.println(NetTool.get_localHostAddress_w());
 
     }
+
 }

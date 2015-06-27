@@ -4,8 +4,8 @@ package hb.tools;
  * Created by Hobis-PC on 2015-06-24.
  */
 @SuppressWarnings({"unused", "UnusedAssignment"})
-public final class HB_ThreadTool {
-    private HB_ThreadTool() {
+public final class ThreadTool {
+    private ThreadTool() {
     }
 
     public static Thread create(

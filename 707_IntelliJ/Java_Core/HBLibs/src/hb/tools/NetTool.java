@@ -9,7 +9,10 @@ import java.util.Enumeration;
  * Created by snag on 2015-06-25.
  */
 @SuppressWarnings({"unused", "UnusedAssignment"})
-public final class HB_NetTool {
+public final class NetTool {
+    private NetTool() {
+    }
+
 
     private static String _LINE_SEPARATOR = System.getProperty("line.separator");
 
@@ -93,16 +96,19 @@ public final class HB_NetTool {
     public static String get_localHostAddress_b() {
 
         Enumeration<NetworkInterface> t_nis = null;
+        NetworkInterface t_ni = null;
+        Enumeration<InetAddress> t_ias = null;
+        InetAddress t_ia = null;
 
         try {
             t_nis = NetworkInterface.getNetworkInterfaces();
 
             while (t_nis.hasMoreElements()) {
-                NetworkInterface t_ni = t_nis.nextElement();
-                Enumeration<InetAddress> t_ias = t_ni.getInetAddresses();
+                t_ni = t_nis.nextElement();
+                t_ias = t_ni.getInetAddresses();
 
                 while (t_ias.hasMoreElements()) {
-                    InetAddress t_ia = t_ias.nextElement();
+                    t_ia = t_ias.nextElement();
 
                     if (t_ia.isLoopbackAddress()) {
                     }
