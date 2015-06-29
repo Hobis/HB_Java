@@ -11,6 +11,7 @@ public final class DebugTool {
 
 
 
+
     // -
     public static final String TYPE_CONSOLE = "type_console";
     // -

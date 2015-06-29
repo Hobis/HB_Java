@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="HBLibs:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/HBLibs_jar</output-path>
+    <root id="archive" name="HBLibs.jar">
+      <element id="module-output" name="HBLibs" />
+    </root>
+  </artifact>
+</component>
