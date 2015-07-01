@@ -23,19 +23,18 @@ public class RollServer extends Thread implements Closeable {
 
 
     // ::
-    private void p_serverLoop() {
+    private void p_loop() {
 
         try {
-            this._ss = new ServerSocket();
+            _ss = new ServerSocket(_port);
 
             while (_isLoop) {
-                Socket t_cs = this._ss.accept();
+                Socket t_cs = _ss.accept();
+                RollTask.add(t_cs);
             }
         }
-
         catch (IOException e) {
         }
-
     }
 
 
@@ -49,13 +48,22 @@ public class RollServer extends Thread implements Closeable {
     public void run() {
         RollUtil.trace("서버가 시작됩니다.");
         RollUtil.trace("서버-호스트: " + RollUtil.get_hostAddress());
-        RollUtil.trace("서버-포트: " + this._port);
+        RollUtil.trace("서버-포트: " + _port);
 
-        //p_serverLoop();
+        p_loop();
     }
 
     @Override
     public void close() {
+        _isLoop = false;
 
+        try {
+            _ss.close();
+        }
+        catch (Exception e) {
+        }
+        _ss = null;
+
+        RollTask.remove_all();
     }
 }
